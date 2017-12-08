@@ -1,0 +1,19 @@
+<div>
+    
+    <div class="row">
+        <h1>
+            <%= @wiki.title %> <br>
+        </h1
+        <small> Created: <%= @wiki.created_at %> | Last Updated: <%= @wiki.updated_at %> </small>
+    </div>
+    
+    <div class="row" style="padding-top: 20px">
+        <p> <%= @wiki.body %> </p>
+    </div>
+    
+    <div class="row">
+        <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>
+         <%= link_to "Delete", [@wiki], method: :delete, class: 'btn btn-danger' %>
+    </div>
+    
+</div>
