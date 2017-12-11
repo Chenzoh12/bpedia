@@ -28,7 +28,7 @@ group :development, :test do
     gem 'spring'
     gem 'rspec-rails'
     gem 'shoulda'
-    gem 'faker'
     gem 'factory_girl_rails'
     gem 'pry-rails'
+    gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 end
