@@ -9,14 +9,18 @@ User.create!(
 end
 users = User.all
 
-# Create Topics
+
+# Create Wikis
 15.times do
     Wiki.create!(
         title: RandomData.random_sentence,
-        body: RandomData.random_paragraph
+        body: RandomData.random_paragraph,
+        private: false,
+        user: users.sample
     )
 end
 wikis = Wiki.all
 
 puts "Seed finished"
+puts "#{User.count} users created"
 puts "#{Wiki.count} wikis created"
