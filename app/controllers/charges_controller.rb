@@ -40,6 +40,12 @@ class ChargesController < ApplicationController
     end
     
      def downgrade
+        #Downgrade all private wikis as well
+        user_wikis = Wiki.where(user_id = current_user.id)
+        user_wikis.each do |wiki|
+            wiki.private = false
+            wiki.save
+        end
         current_user.standard!
         flash[:notice] = "You have been downgraded. No more money =/"
         redirect_to root_path
