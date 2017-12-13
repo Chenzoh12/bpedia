@@ -12,11 +12,11 @@ class User < ActiveRecord::Base
         presence: true,
         uniqueness: { case_sensitive: false },
         length: { minimum: 5, maximum: 254 }
-        
+=begin        
      validates :password,
         presence: true,
         length: { minimum: 6, maximum: 254 },
         allow_blank: false
-         
+=end 
   enum role: [:standard, :premium, :admin]
 end

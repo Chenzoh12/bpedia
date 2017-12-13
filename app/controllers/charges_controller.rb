@@ -2,7 +2,7 @@ class ChargesController < ApplicationController
     def new
         @stripe_btn_data = {
             key: "#{ Rails.configuration.stripe[:publishable_key] }",
-            description: "BigMoney Membership - #{current_user.email}",
+            description: "Premium Membership - #{current_user.email}",
             amount: def_amount
         }
     end
@@ -19,13 +19,17 @@ class ChargesController < ApplicationController
         # Where the real magic happens
         charge = Stripe::Charge.create(
             customer: customer.id, # Note -- this is NOT the user_id in your app
-            amount: charge_amount,
-            description: "BigMoney Membership - #{current_user.email}",
+            amount: def_amount,
+            description: "Premium Membership - #{current_user.email}",
             currency: 'usd'
         )
         
-        flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
-        redirect_to user_path(current_user) # or wherever
+        # Upgrades user account
+        
+        current_user.premium!
+        
+        flash[:notice] = "Congrats, #{current_user.email}! You have successfully upgraded your account."
+        redirect_to root_path
         
         # Stripe will send back CardErrors, with friendly messages
         # when something goes wrong.
@@ -35,6 +39,11 @@ class ChargesController < ApplicationController
             redirect_to new_charge_path
     end
     
+     def downgrade
+        current_user.standard!
+        flash[:notice] = "You have been downgraded. No more money =/"
+        redirect_to root_path
+    end
     
     def def_amount
         10_00
