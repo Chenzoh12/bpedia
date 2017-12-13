@@ -41,7 +41,7 @@
 <% if current_user.standard? %>
   <%= link_to "Upgrade to Premium", new_charge_path, class: 'btn btn-primary' %>
 <% elsif current_user.premium? %>
-  <link_to "Cancel Premium", charges_downgrade_path, method: :post %>
+  <%= link_to "Cancel Premium", charges_downgrade_path, method: :post. class: 'btn btn-dange'%>
 <% end %>
 
 <h3>Cancel my account</h3>
