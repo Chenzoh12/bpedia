@@ -36,16 +36,23 @@
   </div>
 <% end %>
 
-
-<h3>Membership Information</h3>
-<p>Your current membership is: <b><%= current_user.role %></b></p
-<% if current_user.standard? %>
-  <%= link_to "Upgrade", new_charge_path, class: 'btn btn-submit' %>
-<% elsif current_user.premium? %>
-  <%= link_to "Cancel Premium", registration_path(current_user), class: 'btn btn-danger' %>
-<% end %>
-
-
-<h3>Cancel my account</h3>
-<%= button_to "Cancel", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %>
-<%= link_to "Back", :back %>
+  <div>
+    <div>
+      <h3>Account Status</h3>
+      <h5>Your current membership is: <b><%= current_user.role %></b></h5>
+    </div>
+    
+    <div>
+      <% if current_user.standard? %>
+        <%= link_to "Upgrade to Premium", new_charge_path, class: 'btn btn-primary' %>
+      <% elsif current_user.premium? %>
+        <%= link_to "Cancel My Premium Membership", charges_downgrade_path, method: :post, data: { confirm: 'Are you sure you want to downgrade? All of your private wikis will become public.' } %>
+      <% end %>
+    </div>
+    
+    <div>
+      <h3>Cancel my account</h3>
+      <%= button_to "Cancel", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: 'btn btn-danger' %>
+      <%= link_to "Back", :back %>
+    </div>
+  </div>

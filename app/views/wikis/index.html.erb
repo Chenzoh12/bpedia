@@ -7,13 +7,16 @@
         
 
         <% @wiki.each do |wiki| %>
+            <% if wiki.private? && wiki.user_id == current_user.id || wiki.private? == false %>
             <div class="media">
                 <div class="media-body">
                     <h4 class="media-heading">
-                        <%= link_to wiki.title, wiki %>
+                       <h3> <%= link_to wiki.title, wiki %><% if wiki.private? %> - Private <% end %></h3>
+                       <h5> WIKI ID: <%= wiki.user_id %> USER ID: <%= current_user.id %></h5>
                     </h4>
                 </div>
             </div>
+            <% end %>
         <% end %>
 
     </div>
