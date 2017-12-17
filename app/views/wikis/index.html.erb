@@ -11,7 +11,7 @@
             <div class="media">
                 <div class="media-body">
                     <h4 class="media-heading">
-                       <h3> <%= link_to wiki.title, wiki %><% if wiki.private? %> - Private <% end %></h3>
+                        <%= link_to render_markdown(wiki.title), wiki %><% if wiki.private? %> - Private <% end %></h3>
                        <h5> WIKI ID: <%= wiki.user_id %> USER ID: <%= current_user.id %></h5>
                     </h4>
                 </div>

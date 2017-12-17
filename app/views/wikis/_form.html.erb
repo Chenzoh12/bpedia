@@ -10,13 +10,19 @@
         </div>
     <% end %>
     
-    <div class="form-group">
-        <%= f.label :title %>
-        <%= f.text_field :title, class: 'form-control', placeholder: "Enter wiki title" %>
-    
-        <%= f.label :body %>
-        <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
-    </div>
+    <h3>Edit Wiki Here</h3>
+    <h4>(you can use Markdown!)</h4>
+        <div class="form-group">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: "form-control", placeholder: "Enter wiki title" %>
+        </div>
+        
+        <div class="form-group">
+            <%= f.label :body %>
+            <%= md_simple_editor  do %>
+                <%= f.text_area :body, rows: 10, class: "form-control", placeholder: "Enter wiki body" %>
+            <% end %>
+        </div>
 
     <% if current_user.admin? || current_user.premium? %>
         <div class="form-group">
@@ -25,6 +31,7 @@
             <% end %>
         </div>
     <% end %>
+
     
     <div class="form-group">
         <%= f.submit "Save", class: 'btn btn-success' %>

@@ -23,6 +23,8 @@ gem 'figaro', '1.0'
 gem 'devise'
 gem 'pundit'
 gem 'stripe'
+gem 'redcarpet'
+gem 'md_simple_editor'
 
 group :development, :test do
     gem 'byebug'

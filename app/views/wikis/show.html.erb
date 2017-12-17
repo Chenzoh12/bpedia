@@ -2,8 +2,8 @@
     
     <div class="row">
         <h1>
-            <%= @wiki.title %> <br>
-        </h1
+           <%= render_markdown(@wiki.title) %> 
+        </h1>
         <small> Created: <%= @wiki.created_at %> | Last Updated: <%= @wiki.updated_at %> </small>
     </div>
     
