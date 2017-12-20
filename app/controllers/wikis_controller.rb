@@ -1,9 +1,11 @@
 class WikisController < ApplicationController
     
     after_action :verify_authorized
+    
     def markdown(text)
         markdown = Redcarpet::Markdown.new(renderer, extensions = {})
     end
+    
     def index
         @wiki = Wiki.all
         authorize @wiki

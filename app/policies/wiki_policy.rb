@@ -8,7 +8,7 @@ class WikiPolicy < ApplicationPolicy
   
   def show?
     if wiki.private
-      user.admin? || user.premium?
+      user.admin? || wiki.collaborators.users.ids.include?(user.id) || user.id == wiki.user_id
     else
       user.present?
     end
@@ -16,7 +16,7 @@ class WikiPolicy < ApplicationPolicy
   
   def update?
     if wiki.private
-      user.admin? || user.id == wiki.user_id
+      user.admin? || wiki.collaborators.users.ids.include?(user.id) || user.id == wiki.user_id
     else
       user.present?
     end
@@ -35,11 +35,20 @@ class WikiPolicy < ApplicationPolicy
     end
     
     def resolve
-      if user.admin? || user.premium?
-        scope.all
+      wikis = []
+      
+      if user.admin?
+        wikis = scope.all # if the user is an admin, show them all the wikis
+        
       else
-        scope.where(private: false)
+        all_wikis = scope.all
+        all_wikis.each do |wiki|
+          if !wiki.private || wiki.user_id == user.id || wiki.collaborators.users.ids.include?(user.id)
+              wikis << wiki
+          end
+        end
       end
+      wikis
     end
   end
 end

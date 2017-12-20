@@ -21,6 +21,15 @@ users = User.all
 end
 wikis = Wiki.all
 
+# Create collaborators:
+30.times do
+    Collaborator.create!(
+        user: users.sample,
+        wiki: wikis.sample
+    )
+end
+
 puts "Seed finished"
 puts "#{User.count} users created"
 puts "#{Wiki.count} wikis created"
+puts "#{Collaborator.count} collaborators created"
