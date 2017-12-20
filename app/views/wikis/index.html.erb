@@ -7,7 +7,6 @@
         
 
         <% @wiki.each do |wiki| %>
-            <% if wiki.private? && wiki.user_id == current_user.id || wiki.private? == false %>
             <div class="media">
                 <div class="media-body">
                     <h4 class="media-heading">
@@ -16,7 +15,6 @@
                     </h4>
                 </div>
             </div>
-            <% end %>
         <% end %>
 
     </div>

@@ -1,12 +1,12 @@
 class WikisController < ApplicationController
     
-    after_action :verify_authorized
+    after_action :verify_authorized, except: [:index]
+    
     def markdown(text)
         markdown = Redcarpet::Markdown.new(renderer, extensions = {})
     end
     def index
-        @wiki = Wiki.all
-        authorize @wiki
+        @wiki = policy_scope(Wiki)
     end
     
     def show
